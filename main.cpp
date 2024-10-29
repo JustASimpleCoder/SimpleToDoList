@@ -9,6 +9,7 @@ bool addTask(std::string task){
         int taskNum = taskList.size() + 1;
         std::string taskToAdd = std::to_string(taskNum)  + ". " + task + " (In Progress)";
         taskList.push_back(taskToAdd);
+        std::cout << "Successfully added new task [" << task << "] to the list";
         return true;
     }else{
         std::cout << "Could not add the new task as it had no value. Please enter a task with characters \n";
@@ -24,7 +25,6 @@ bool deleteTask(int taskNumber){
         return true;
     }
 }
-
 void markCompleteTask(int taskNumber){
     if(taskNumber <= 0 || taskNumber > taskList.size()){
         std::cout << "Please enter a valid task number from 1 to the number of tasks (number of tasks: " << taskList.size() << " ) \n" << std::endl;
@@ -40,8 +40,6 @@ void markCompleteTask(int taskNumber){
         std::cout << "Task number " << taskNumber << ". is already marked complete";
     }
 }
-
-
 void listAllTask(){
     std::cout << "Task List:  " << "\n";
     for(auto &tasks: taskList){
@@ -52,18 +50,21 @@ void listAllTask(){
 }
 
 int main(int argc, char* argv[]) {
-   
-    std::cout << "Currently list fo tasks [" << 5  << "] " << std::endl;
+
     std::string currentTask = "";
-    std::cout << "Would you like to Add (A), Delete (D) or Mark Complete (M), or list all tasks (L) " << std::endl;
+    std::cout << "Would you like to Add (A), Delete (D), Mark Complete (M), list all tasks (L) or Quit Program (Q)" << std::endl;
     std::cin >> currentTask;
     
-    while(currentTask != "A" && currentTask != "D" && currentTask != "M" ){
-        std::cout << "Please enter a valid task (A, D, M, L)";
+    while(currentTask != "A" && currentTask != "D" && currentTask != "M"  && currentTask != "L"  && currentTask != "Q" ){
+        std::cout << "Please enter a valid task (A, D, M, L or Q)";
         std::cin >> currentTask;
     }
+    std::cout << "You have entered the task [" << currentTask  << "] \n" << std::endl;
 
-    std::cout << " You have entered the task [" << currentTask  << "] \n" << std::endl;
+    if(currentTask == "Q"){
+        std::cout << "Quitting Program \n" << std::endl;
+        return 0;
+    }
 
     if(currentTask == "A"){
         std::string newTask = "";
@@ -73,9 +74,7 @@ int main(int argc, char* argv[]) {
         }while(!addTask(newTask));
     }
 
-
     listAllTask();
-
     return 0;
 }
 
